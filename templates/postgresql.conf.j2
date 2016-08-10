@@ -117,7 +117,8 @@ ssl_key_file = '/etc/ssl/private/ssl-cert-snakeoil.key'		# (change requires rest
 
 shared_buffers = {{ (((ansible_memtotal_mb/1024.0)|round|int)*0.25)|int*1024 }}MB
 
-work_mem = {{ (((ansible_memtotal_mb/1024.0)|round|int)*0.25)|int/max_connections*1024 }}MB
+work_mem = {{ ((((ansible_memtotal_mb/1024.0)|round|int)*0.25)/max_connections*1024)|round|int }}MB
+
 maintenance_work_mem = {{ ((ansible_memtotal_mb/1024.0)|round|int)*64 }}MB
 effective_cache_size = {{ (((ansible_memtotal_mb/1024.0)|round|int)*0.75)|int*1024 }}MB
 #huge_pages = try			# on, off, or try
